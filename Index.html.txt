@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EPS TOPIK App</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body{font-family:Arial;background:#111;color:#fff;margin:0;padding:15px;}
+h1{text-align:center;}
+.timer{position:sticky;top:0;background:#000;padding:10px;}
+.q{background:#1e1e1e;padding:10px;margin:10px 0;border-radius:10px;}
+button{padding:10px;margin:5px;}
+</style>
+</head>
+<body>
+
+<h1>EPS TOPIK Mock App</h1>
+<div class="timer">Time: <span id="t">600</span></div>
+<div id="quiz"></div>
+<button onclick="submitTest()">Submit</button>
+
+<script>
+let bank=[
+{q:"한국의 수도는?",o:["서울","부산","대구","인천"],a:0},
+{q:"물은?",o:["water","fire","air","food"],a:0},
+{q:"밥을 먹다?",o:["sleep","eat","run","write"],a:1}
+];
+
+bank.sort(()=>Math.random()-0.5);
+
+let quiz=document.getElementById("quiz");
+
+bank.forEach((x,i)=>{
+let html=`<div class='q'><p>${x.q}</p>`;
+x.o.forEach((op,j)=>{
+html+=`<label><input type='radio' name='q${i}' value='${j}'> ${op}</label><br>`;
+});
+html+="</div>";
+quiz.innerHTML+=html;
+});
+
+function submitTest(){
+let score=0;
+bank.forEach((x,i)=>{
+let sel=document.querySelector(`input[name=q${i}]:checked`);
+if(sel && sel.value==x.a) score++;
+});
+document.getElementById("t").innerText="Score: "+score;
+}
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('sw.js');
+}
+</script>
+
+</body>
+</html>

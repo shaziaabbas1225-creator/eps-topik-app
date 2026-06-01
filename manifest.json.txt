@@ -1,0 +1,11 @@
+{
+"name":"EPS TOPIK App",
+"short_name":"EPS TOPIK",
+"start_url":"index.html",
+"display":"standalone",
+"background_color":"#111",
+"theme_color":"#000",
+"icons":[
+{"src":"icon.png","sizes":"192x192","type":"image/png"}
+]
+}
